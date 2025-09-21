@@ -1,18 +1,18 @@
 #!/bin/bash
 
-VERSION='14'
-FOLDER_WITH_DATA=data
+VERSION='latest'
 CONTAINER_NAME=pg
 IMAGE_NAME=postgres
-PATH_TO_DATA=$(pwd | sed 's:script.*::')$FOLDER_WITH_DATA
+FOLDER_WITH_DATA=data
+PATH_TO_DATA="$(pwd)/$CONTAINER_NAME-$FOLDER_WITH_DATA"
 
 docker run -d \
-    --name $CONTAINER_NAME \
-    -p 5432:5432 \
-    -e POSTGRES_USER=postgres \
-    -e POSTGRES_PASSWORD=postgres \
-    -e POSTGRES_DB=postgres \
-    -e TZ=Asia/Bishkek \
-    -v /etc/localtime:/etc/localtime \
-    -v $PATH_TO_DATA:/var/lib/postgresql/data \
-    $IMAGE_NAME:$VERSION
+	--name $CONTAINER_NAME \
+	--network=host \
+	-e POSTGRES_USER=postgres \
+	-e POSTGRES_PASSWORD=postgres \
+	-e POSTGRES_DB=postgres \
+	-e TZ=Asia/Bishkek \
+	-v /etc/localtime:/etc/localtime \
+	-v $PATH_TO_DATA:/var/lib/postgresql/data \
+	$IMAGE_NAME:$VERSION
