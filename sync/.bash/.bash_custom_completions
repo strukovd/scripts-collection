@@ -1,0 +1,16 @@
+_npm_run_completion() {
+    local cur prev words cword
+    _init_completion -s || return
+
+    # Проверяем, находимся ли внутри директории с package.json
+    if [ -f "package.json" ]; then
+        # Извлекаем скрипты из файла package.json
+        local scripts=$(node -e 'console.log(Object.keys(require("./package.json").scripts || {}).join("\n"))')
+
+        COMPREPLY=($(compgen -W "$scripts" -- "$cur"))
+        return
+    fi
+}
+
+complete -F _npm_run_completion npm run
+

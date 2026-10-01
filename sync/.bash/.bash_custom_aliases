@@ -1,0 +1,35 @@
+alias cc='clear'
+alias qq='exit'
+
+alias atlas-up="incPluginVersion"
+alias change-java="changeJava"
+
+alias fixcrlf2="sed -i '1s/^M$/SUKA/g'"
+alias fixcrlf="sed -i '1s/^.*#//;s/\r$//'"
+
+alias go1='ssh root@bs-docker-srv01'
+alias go2='ssh root@bs-docker-srv02'
+alias gomfc='ssh strukovd@bs-mfc-srv01'
+alias godmz='ssh root@192.168.50.85'
+alias go85='ssh root@192.168.50.85'
+alias go86='ssh root@192.168.50.86'
+alias govtiger='ssh root@192.168.13.4'
+
+alias tunnel_to_silkway_pg='ssh -L 6543:localhost:5432 root@85.235.176.254'
+alias gosilkway='ssh root@85.235.176.254'
+alias tunnel_to_avrora_pg='ssh -L 5432:localhost:5432 root@195.93.252.68'
+alias goavrora='ssh root@195.93.252.68'
+
+alias gokipish='ssh root@188.225.80.100'
+alias tunnel_to_kipish_pg='ssh -L 5432:localhost:5432 root@188.225.80.100'
+
+alias gopaleo='ssh root@5.35.84.98'
+alias gopaleo_old='ssh root@91.200.84.180'
+alias gopaleo_old_2='ssh root@212.113.123.59'
+
+alias gowild='ssh root@5.23.48.222'
+alias tunnel_to_wild_pg='ssh -L 5432:localhost:5432 root@5.23.48.222'
+
+alias findfolder='find . -type d \( -name "node_modules" -o -name "прочие_папки_для_игнорирования" \) -prune -o -type d -name'
+
+

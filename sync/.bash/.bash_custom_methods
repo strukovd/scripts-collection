@@ -1,0 +1,35 @@
+incPluginVersion() {
+  CUR_VERS=$(cat pom.xml | awk '/<version>([0-9]+\.).*/ {print $0; exit;}' | grep -P '[0-9\.]+' -o);
+  BUILD_NUM=$(echo $CUR_VERS | grep -P '[0-9]+$' -o)
+  FIRST_PART_OF_VERS=$(echo $CUR_VERS | grep -P '^[0-9]+\.[0-9]+\.' -o)
+  NEW_BUILD_NUM=$(($BUILD_NUM+1))
+
+  echo "$CUR_VERS -> $FIRST_PART_OF_VERS$NEW_BUILD_NUM"
+
+  sed -i "s:<version>$CUR_VERS</version>:<version>$FIRST_PART_OF_VERS$NEW_BUILD_NUM</version>:" pom.xml
+  atlas-mvn package -o
+}
+
+
+changeJava() {
+  sudo update-alternatives --config java
+  java_path=$(echo $(readlink -f $(which java)) | awk -F '/jre|/bin' '{print $1}')
+
+  if [[ -f ~/.bash_profile ]]; then
+    # Заменить или добавить строку с установкой JAVA_HOME
+    if grep -q "export JAVA_HOME=" ~/.bash_profile; then
+      sed -i "s|export JAVA_HOME=.*|export JAVA_HOME=\"$java_path\"|" ~/.bash_profile
+    else
+      echo "export JAVA_HOME=\"$java_path\"" >> ~/.bash_profile
+    fi
+
+    # Обновить переменную среды
+    source ~/.bash_profile
+    echo "Строка с установкой JAVA_HOME успешно изменена в файле .bash_profile."
+  else
+    echo "Файл .bash_profile не найден."
+
+  fi
+}
+
+
